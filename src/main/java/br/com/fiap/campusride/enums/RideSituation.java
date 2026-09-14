@@ -1,4 +1,4 @@
-package br.com.fiap.campusride.entity;
+package br.com.fiap.campusride.enums;
 
 public enum RideSituation {
     OPEN,

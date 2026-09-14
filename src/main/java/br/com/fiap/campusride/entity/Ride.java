@@ -1,28 +1,36 @@
 package br.com.fiap.campusride.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import br.com.fiap.campusride.enums.RideSituation;
+import br.com.fiap.campusride.enums.VehicleType;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-public class Ride extends Driver{
+@Builder              // <-- Cria o método builder()
+@NoArgsConstructor    // <-- Exigido pelo JPA
+@AllArgsConstructor   // <-- OBRIGATÓRIO quando usado com @Builder e @NoArgsConstructor
+public class Ride {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Driver driver;
+
+    private Long driverId;
     private String origin;
     private String destiny;
-    private LocalDate departureTime;
-    private Integer seats;
+    private LocalDateTime departureTime;
+
+    @Enumerated(EnumType.STRING)
+    private VehicleType vehicleType;
+
+    private Integer totalSeats;
+
+    @Enumerated(EnumType.STRING)
+    @Builder.Default
+    private RideSituation status = RideSituation.OPEN;
 }
