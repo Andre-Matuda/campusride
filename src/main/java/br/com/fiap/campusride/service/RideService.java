@@ -6,6 +6,8 @@ import br.com.fiap.campusride.enums.RideSituation;
 import br.com.fiap.campusride.reposititory.RideRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class RideService {
 
@@ -15,17 +17,11 @@ public class RideService {
         this.rideRepository = rideRepository;
     }
 
-    public Ride create(RideRequest request) {
-        Ride ride = Ride.builder()
-                .driverId(request.driverId())
-                .origin(request.origin())
-                .destiny(request.destiny())
-                .departureTime(request.departureTime())
-                .vehicleType(request.vehicleType())
-                .totalSeats(request.totalSeats())
-                .status(RideSituation.OPEN)
-                .build();
-
+    public Ride create(Ride ride) {
         return rideRepository.save(ride);
+    }
+
+    public List<Ride> findAll() {
+        return rideRepository.findAll();
     }
 }

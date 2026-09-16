@@ -1,6 +1,6 @@
 package br.com.fiap.campusride.dto;
 
-import br.com.fiap.campusride.enums.VehicleType;
+import br.com.fiap.campusride.entity.Ride;
 import br.com.fiap.campusride.enums.VehicleType;
 import br.com.fiap.campusride.validation.VehicleCapacity;
 import jakarta.validation.constraints.Future;
@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 
 @VehicleCapacity
 public record RideRequest(
+
         @NotNull(message = "O motorista é obrigatório")
         Long driverId,
 
@@ -26,9 +27,23 @@ public record RideRequest(
         LocalDateTime departureTime,
 
         @NotNull(message = "O tipo de veículo é obrigatório")
-        br.com.fiap.campusride.enums.VehicleType vehicleType,
+        VehicleType vehicleType,
 
         @NotNull(message = "A quantidade de vagas é obrigatória")
         @Min(value = 1, message = "A carona deve ter ao menos 1 vaga")
         Integer totalSeats
-) {}
+
+) {
+
+        public Ride toEntity() {
+                return Ride.builder()
+                        .driverId(driverId)
+                        .origin(origin)
+                        .destiny(destiny)
+                        .departureTime(departureTime)
+                        .vehicleType(vehicleType)
+                        .totalSeats(totalSeats)
+                        .status(br.com.fiap.campusride.enums.RideSituation.OPEN)
+                        .build();
+        }
+}

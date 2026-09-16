@@ -22,12 +22,14 @@ public class RideController {
 
     @PostMapping
     public ResponseEntity<RideResponse> create(@RequestBody @Valid RideRequest request) {
-        RideResponse response = rideService.create(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        return rideService.create(rideRequest.toEntity);
     }
 
     @GetMapping
-    public ResponseEntity<List<RideResponse>> listAvailable() {
-        return ResponseEntity.ok(rideService.findAll());
+    public List<RideResponse> findAll() {
+        return rideService.findAll()
+                .stream()
+                .map(RideResponse::fromEntity)
+                .toList();
     }
 }

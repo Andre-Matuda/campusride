@@ -7,13 +7,15 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import java.time.LocalDateTime;
 
-@Data
 @Entity
-@Builder              // <-- Cria o método builder()
-@NoArgsConstructor    // <-- Exigido pelo JPA
-@AllArgsConstructor   // <-- OBRIGATÓRIO quando usado com @Builder e @NoArgsConstructor
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "rides")
 public class Ride {
 
     @Id
@@ -31,6 +33,5 @@ public class Ride {
     private Integer totalSeats;
 
     @Enumerated(EnumType.STRING)
-    @Builder.Default
     private RideSituation status = RideSituation.OPEN;
 }
