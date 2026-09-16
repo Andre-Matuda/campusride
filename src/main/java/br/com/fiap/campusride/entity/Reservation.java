@@ -1,16 +1,17 @@
 package br.com.fiap.campusride.entity;
 
 import br.com.fiap.campusride.enums.RideReservation;
-import br.com.fiap.campusride.enums.RideSituation;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Reservation extends Ride{
+public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -18,5 +19,10 @@ public class Reservation extends Ride{
     @Enumerated(EnumType.STRING)
     private RideReservation status = RideReservation.CANCELED;
 
+    private Ride ride;
+
+    private Passenger passenger;
+
+    private LocalDateTime createdAt;
 
 }
