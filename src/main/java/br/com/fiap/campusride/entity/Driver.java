@@ -6,12 +6,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.*;
 
-@Data
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class Driver {
+public class Driver extends Ride{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
